@@ -6,13 +6,18 @@ import (
   "os"
   "time"
   "fmt"
+  "flag"
 )
 
 func main() {
-  fileUrl := "http://ipv4.download.thinkbroadband.com/20MB.zip"
+
+  testFileSize := flag.Int("file-size", 20, "Use this flag to choose a file size to run the test with, [5, 20, 200, 512]")
+  flag.Parse()
+
+  fileUrl := fmt.Sprintf("http://ipv4.download.thinkbroadband.com/%vMB.zip", *testFileSize)
 
   for {
-    err := DownloadFile("20MB.zip", fileUrl)
+    err := DownloadFile("download_test.file", fileUrl)
     if err != nil {
       panic(err)
     }
